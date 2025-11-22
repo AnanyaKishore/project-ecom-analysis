@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Sales Analysis</title>
+    <!-- Bootstrap CSS (Same theme engine used by Dash) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        /* Global Styles matching your app.layout styles */
+        body {
+            background-color: black;
+            color: white;
+            min-height: 100vh;
+            padding-bottom: 50px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: white;
+            color: #212529 !important; /* Bootstrap text-dark */
+            border-radius: 0.25rem;
+            margin: 0.5rem;
+        }
+
+        /* Stat Cards specific sizing */
+        .stat-card {
+            width: 14rem;
+            display: inline-block;
+            text-align: center;
+        }
+
+        /* Graph Card Styles */
+        .graph-card {
+            margin-bottom: 1.5rem;
+            border: none;
+        }
+
+        .graph-card .card-body {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /* Iframe styling to embed the Plotly HTMLs seamlessly */
+        iframe.graph-frame {
+            width: 100%;
+            height: 450px; /* Standard Dash graph height */
+            border: none;
+            display: block;
+        }
+
+        /* Tab Navigation Styles */
+        .nav-tabs {
+            border-bottom: 1px solid #444;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .nav-tabs .nav-link {
+            color: #aaa;
+            background-color: transparent;
+            border: none;
+            font-weight: 500;
+        }
+
+        .nav-tabs .nav-link:hover {
+            color: #fff;
+            border: none;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: black;
+            background-color: white;
+            border-radius: 4px 4px 0 0;
+        }
+
+        /* Tab Content Logic */
+        .tab-pane {
+            display: none; /* Hide all tabs by default */
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-pane.active {
+            display: block; /* Show active tab */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-top: 20px;
+        }
+
+        hr {
+            border-top: 1px solid white;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    
+    <!-- Title -->
+    <h1>E-commerce Sales Analysis</h1>
+
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-tabs" id="dashboardTabs">
+        <li class="nav-item">
+            <button class="nav-link active" onclick="openTab(event, 'tab-logistics')">Logistics</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" onclick="openTab(event, 'tab-customers')">Customers</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" onclick="openTab(event, 'tab-statewise')">State-Wise</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" onclick="openTab(event, 'tab-timeseries')">Time Series</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" onclick="openTab(event, 'tab-trends')">Trends</button>
+        </li>
+    </ul>
+
+    <!-- Tab Content Container -->
+    <div id="tab-content">
+
+        <!-- TAB 1: LOGISTICS -->
+        <div id="tab-logistics" class="tab-pane active">
+            <br>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Sellers</h6><h4 class="card-text">3,084</h4></div></div>
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Orders</h6><h4 class="card-text">97,284</h4></div></div>
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Products</h6><h4 class="card-text">32,621</h4></div></div>
+            </div>
+            <br>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Customers</h6><h4 class="card-text">94,101</h4></div></div>
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Cities</h6><h4 class="card-text">4,091</h4></div></div>
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique States</h6><h4 class="card-text">27</h4></div></div>
+            </div>
+            <br>
+            <div class="text-center">
+                <div class="card shadow-sm m-3 d-inline-block text-dark">
+                    <div class="card-body">Should add text here</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: CUSTOMERS -->
+        <div id="tab-customers" class="tab-pane">
+            <br>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Customers</h6><h4 class="card-text">94,101</h4></div></div>
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Regions</h6><h4 class="card-text">14,930</h4></div></div>
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Cities</h6><h4 class="card-text">4,091</h4></div></div>
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique States</h6><h4 class="card-text">27</h4></div></div>
+            </div>
+            <br>
+            
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <!-- We use iframes to load the Plotly HTML files -->
+                            <iframe class="graph-frame" src="assets/fig6.html"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig7.html"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: STATE-WISE -->
+        <div id="tab-statewise" class="tab-pane">
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig8.html"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig9.html"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig10.html"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: TIME SERIES -->
+        <div id="tab-timeseries" class="tab-pane">
+            <br>
+            <h5 style="text-align: center;">Comparing Overall Variations (Left) with State-Wise Variations (Right)</h5>
+            <br>
+            
+            <!-- Row 1 -->
+            <div class="row">
+                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig1.html"></iframe></div></div></div>
+                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig1_choropleth.html"></iframe></div></div></div>
+            </div>
+            <hr>
+
+            <!-- Row 2 -->
+            <div class="row">
+                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig2.html"></iframe></div></div></div>
+                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig2_choropleth.html"></iframe></div></div></div>
+            </div>
+            <hr>
+
+            <!-- Row 3 -->
+            <div class="row">
+                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig3.html"></iframe></div></div></div>
+                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig3_choropleth.html"></iframe></div></div></div>
+            </div>
+            <hr>
+            
+            <!-- Row 4 -->
+            <div class="row">
+                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig4.html"></iframe></div></div></div>
+                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig4_choropleth.html"></iframe></div></div></div>
+            </div>
+            <hr>
+
+            <!-- Row 5 -->
+            <div class="row">
+                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig5.html"></iframe></div></div></div>
+                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig5_choropleth.html"></iframe></div></div></div>
+            </div>
+        </div>
+
+        <!-- TAB 5: TRENDS -->
+        <div id="tab-trends" class="tab-pane">
+            <br>
+            <h5 style="text-align: center;">Static Analysis</h5>
+            <hr style="width: 50%; margin: 10px auto;">
+
+            <div class="row">
+                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig11.html"></iframe></div></div></div>
+                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig12.html"></iframe></div></div></div>
+            </div>
+
+            <br><br>
+            <h5 style="text-align: center;">Dynamic Analysis</h5>
+            <hr style="width: 50%; margin: 10px auto;">
+
+            <div class="row">
+                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig13.html"></iframe></div></div></div>
+                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig14.html"></iframe></div></div></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // JavaScript to handle Tab Switching
+    function openTab(evt, tabName) {
+        // 1. Hide all tab-pane elements
+        var i, tabContent, tabLinks;
+        tabContent = document.getElementsByClassName("tab-pane");
+        for (i = 0; i < tabContent.length; i++) {
+            tabContent[i].style.display = "none";
+            tabContent[i].classList.remove("active");
+        }
+
+        // 2. Remove "active" class from all tab links
+        tabLinks = document.getElementsByClassName("nav-link");
+        for (i = 0; i < tabLinks.length; i++) {
+            tabLinks[i].className = tabLinks[i].className.replace(" active", "");
+        }
+
+        // 3. Show the current tab and add "active" class to the button clicked
+        document.getElementById(tabName).style.display = "block";
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+</body>
+</html>

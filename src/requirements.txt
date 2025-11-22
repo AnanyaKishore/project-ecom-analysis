@@ -1,0 +1,7 @@
+dash==3.2.0
+plotly==6.4.0
+numpy==2.3.2
+pandas==2.3.1
+requests==2.32.4
+pyarrow==22.0.0
+fastparquet==2024.11.0
