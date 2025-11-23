@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-commerce Sales Analysis</title>
-    <!-- Bootstrap CSS (Same theme engine used by Dash) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
@@ -107,13 +106,14 @@
 
 <div class="container-fluid">
     
-    <!-- Title -->
     <h1>E-commerce Sales Analysis</h1>
 
-    <!-- Navigation Tabs -->
     <ul class="nav nav-tabs" id="dashboardTabs">
         <li class="nav-item">
-            <button class="nav-link active" onclick="openTab(event, 'tab-logistics')">Logistics</button>
+            <button class="nav-link active" onclick="openTab(event, 'tab-logistics')">Overview</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" onclick="openTab(event, 'tab-orders')">Orders</button>
         </li>
         <li class="nav-item">
             <button class="nav-link" onclick="openTab(event, 'tab-customers')">Customers</button>
@@ -129,32 +129,95 @@
         </li>
     </ul>
 
-    <!-- Tab Content Container -->
     <div id="tab-content">
 
-        <!-- TAB 1: LOGISTICS -->
-        <div id="tab-logistics" class="tab-pane active">
+        <div id="tab-overview" class="tab-pane active">
+        </div>
+
+        <div id="tab-orders" class="tab-pane">
             <br>
             <div style="display: flex; flex-wrap: wrap; justify-content: center;">
-                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Sellers</h6><h4 class="card-text">3,084</h4></div></div>
-                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Orders</h6><h4 class="card-text">97,284</h4></div></div>
-                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Products</h6><h4 class="card-text">32,621</h4></div></div>
+                <div class="card stat-card shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title">Total Orders</h6>
+                        <h4 class="card-text">97,284</h4> </div>
+                </div>
+                <div class="card stat-card shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title">Total Revenue</h6>
+                        <h4 class="card-text">$15,638,600</h4> </div>
+                </div>
+                <div class="card stat-card shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title">Average Order Value</h6>
+                        <h4 class="card-text">$160.75</h4> </div>
+                </div>
+                <div class="card stat-card shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title">Median Order Value</h6>
+                        <h4 class="card-text">$105.29</h4> </div>
+                </div>
+                <div class="card stat-card shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title">Unique Sellers</h6>
+                        <h4 class="card-text">3,084</h4> </div>
+                </div>
+                <div class="card stat-card shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title">Unique Products</h6>
+                        <h4 class="card-text">32,621</h4> </div>
+                </div>
             </div>
             <br>
             <div style="display: flex; flex-wrap: wrap; justify-content: center;">
-                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Customers</h6><h4 class="card-text">94,101</h4></div></div>
-                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Cities</h6><h4 class="card-text">4,091</h4></div></div>
-                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique States</h6><h4 class="card-text">27</h4></div></div>
+                <div class="card stat-card shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title">Delivered</h6>
+                        <h4 class="card-text">97.8%</h4> </div>
+                </div>
+                <div class="card stat-card shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title">Canceled</h6>
+                        <h4 class="card-text">0.49%</h4> </div>
+                </div>
+                <div class="card stat-card shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title">Unavailable</h6>
+                        <h4 class="card-text">0.01%</h4> </div>
+                </div>
             </div>
             <br>
-            <div class="text-center">
-                <div class="card shadow-sm m-3 d-inline-block text-dark">
-                    <div class="card-body">Should add text here</div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="text-center mt-2 mb-4">
+                <strong>97.8%</strong> of orders have been <strong>delivered</strong>. The pie chart below shows the status of the remaining orders:
+                </div>
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig16.html"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div style="margin-top: 3.5rem;"></div> 
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig18.html"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig15.html"></iframe>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- TAB 2: CUSTOMERS -->
         <div id="tab-customers" class="tab-pane">
             <br>
             <div style="display: flex; flex-wrap: wrap; justify-content: center;">
@@ -165,12 +228,18 @@
             </div>
             <br>
             
-            <div class="row justify-content-center">
+            <div class="row">
                 <div class="col-md-6">
                     <div class="card graph-card shadow-sm">
                         <div class="card-body">
-                            <!-- We use iframes to load the Plotly HTML files -->
                             <iframe class="graph-frame" src="assets/fig6.html"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig17.html"></iframe>
                         </div>
                     </div>
                 </div>
@@ -187,19 +256,8 @@
             </div>
         </div>
 
-        <!-- TAB 3: STATE-WISE -->
         <div id="tab-statewise" class="tab-pane">
             <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card graph-card shadow-sm">
-                        <div class="card-body">
-                            <iframe class="graph-frame" src="assets/fig8.html"></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="row">
                 <div class="col-md-6">
                     <div class="card graph-card shadow-sm">
@@ -216,9 +274,17 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig8.html"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- TAB 4: TIME SERIES -->
         <div id="tab-timeseries" class="tab-pane">
             <br>
             <h5 style="text-align: center;">Comparing Overall Variations (Left) with State-Wise Variations (Right)</h5>
@@ -272,7 +338,7 @@
             <div class="text-center mt-2 mb-4">
                 <strong>Most Frequently Observed:</strong> 7 Days
                 <br>
-                On average, an order is delivered <b>12.07</b> days after it has been purchased.
+                On average, an order is delivered <b>12.07 days</b> after it has been purchased.
             </div>
             <hr>
 
@@ -284,11 +350,10 @@
             <div class="text-center mt-2 mb-4">
                 <strong>Most Frequently Observed:</strong> 1 Day
                 <br>
-                On average, an order is shipped <b>2.83</b> days after it has been purchased.
+                On average, an order is shipped <b>2.83 days</b> after it has been purchased.
             </div>
         </div>
 
-        <!-- TAB 5: TRENDS -->
         <div id="tab-trends" class="tab-pane">
             <br>
             <h5 style="text-align: center;">Static Analysis</h5>

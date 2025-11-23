@@ -56,6 +56,7 @@ state_map = {
 }
 
 df['customer_state_full'] = df['customer_state'].map(state_map)
+df["price_with_freight_charges"] = df["price"] + df["freight_value"]
 
 df["diff_delivered_carrier"] = df["order_delivered_customer_date"] - df["order_delivered_carrier_date"]
 df["diff_delivered_estimated"] = df["order_delivered_customer_date"].dt.normalize() - df["order_estimated_delivery_date"]
@@ -576,7 +577,7 @@ fig9.update_traces(
     customdata=state_summary[['average_sales']],
     hovertemplate=
         "<b>%{hovertext}</b><br>" +
-        "Average Sales: %{customdata[0]:,.2f}<br>" +
+        "Average Sales: $%{customdata[0]:,.2f}<br>" +
         "<extra></extra>"
 )
 
@@ -584,16 +585,6 @@ fig9.update_geos(
     visible=False,
     lataxis_range=[-38, 10],
     lonaxis_range=[-78, -30]
-)
-
-fig9.update_layout(title_x=0.5,
-    coloraxis_colorbar=dict(
-    title=dict(
-        text="Avg Sales ($)", 
-        side="right",              
-        font=dict(size=12)),
-    x = 0.9
-    )
 )
 
 fig9.update_geos(fitbounds="locations", visible=False)
@@ -633,7 +624,7 @@ fig10.update_traces(
     customdata=state_freight[['freight_value']],
     hovertemplate=
         "<b>%{hovertext}</b><br>" +
-        "Average Freight: %{customdata[0]:,.2f}<br>" +
+        "Average Freight: $%{customdata[0]:,.2f}<br>" +
         "<extra></extra>"
 )
 
@@ -826,6 +817,164 @@ fig14.update_layout(
     }]
 )
 
+# -- fig15 --
+items_per_order = df.groupby('order_id')['order_item_id'].max().reset_index()
+items_per_order = items_per_order.rename(columns={'order_item_id': 'num_items'})
+df_with_num_items = pd.merge(df, items_per_order, on='order_id')
+avg_price_data = df_with_num_items.groupby('num_items')['price'].mean().reset_index()
+
+# Create formatted label for display only
+avg_price_data['price_label'] = avg_price_data['price'].round(2).apply(lambda x: f"${x}")
+
+fig15 = px.bar(
+    avg_price_data,
+    x='num_items',
+    y='price',
+    color='price',
+    color_continuous_scale='Plasma',
+    text='price_label',               # display label with dollar sign
+    hover_data={'price_label': False, 'price': ':.2f'},  # hide label; format price nicely
+    title='Average Item Price Based On Number Of Items Purchased',
+    labels={'num_items': 'Number of Items Purchased', 'price': 'Average Item Price ($)'}
+)
+
+fig15.update_traces(textposition='outside')
+fig15.update_xaxes(type='category')
+
+fig15.update_layout(
+    title_x=0.5,
+    uniformtext_minsize=8,
+    uniformtext_mode='hide',
+    margin=dict(t=75),
+    coloraxis_colorbar=dict(
+        title=dict(
+            text="Avg Item Price ($)",
+            side="right",
+            font=dict(size=12)
+        )
+    )
+)
+
+# -- fig16 --
+status_df = (
+    df.query("order_status != 'delivered'")
+      .assign(order_status_cap=lambda x: x['order_status'].str.capitalize())
+      .reset_index(drop=True)
+)
+
+fig16 = px.pie(
+    status_df,
+    names='order_status_cap',
+    title='Order Status Distribution Excluding Delivered Orders',
+    color='order_status_cap',
+    color_discrete_sequence=px.colors.qualitative.Bold
+)
+
+fig16.update_traces(
+    textposition='inside',
+    textinfo='label+percent',
+    textfont=dict(size=11),                        # smaller label text
+    pull=0.03,
+    rotation=90,
+    hovertemplate="Order Status: %{label}<br>Percent: %{percent}<extra></extra>"
+)
+
+fig16.update_layout(
+    title_x=0.5,
+    margin=dict(t=80, b=30, l=30, r=30),
+    showlegend=False
+)
+
+# -- fig17 --
+# Compute CLV per customer
+clv_df = (
+    df.groupby("customer_unique_id", observed=False)
+      .agg(lifetime_value=("price_with_freight_charges", "sum"),
+           state=("customer_state", "first"))
+      .reset_index()
+)
+
+# Aggregate to state-level CLV
+clv_state = (
+    clv_df.groupby("state", observed=False)
+           .lifetime_value
+           .mean()
+           .reset_index()
+           .rename(columns={"lifetime_value": "avg_clv"})
+)
+clv_state["customer_state_full"] = clv_state["state"].map(state_map)
+fig17 = px.choropleth(
+    clv_state,
+    geojson=geojson,
+    locations="state",
+    featureidkey="properties.sigla",
+    color="avg_clv",
+    color_continuous_scale="RdBu_r",
+    scope="world",
+    title="Average Customer Lifetime Value by State",
+    hover_name="customer_state_full",
+    hover_data={},
+)
+
+fig17.update_traces(
+    hovertemplate="<b>%{customdata[0]}</b><br>Average CLV: $%{customdata[1]:,.2f}<extra></extra>",
+    customdata=clv_state[["customer_state_full", "avg_clv"]].to_numpy()
+)
+
+fig17.update_geos(
+    fitbounds="locations",
+    visible=False,
+    lataxis_range=[-38, 10],
+    lonaxis_range=[-78, -30]
+)
+
+fig17.update_layout(margin={"r":0,"t":50,"l":0,"b":0},
+    coloraxis_colorbar=dict(
+        title=dict(
+            text="Avg CLV ($)", 
+            side="right",              
+            font=dict(size=12)
+        ), x = 0.85
+    ), title_x=0.5)
+
+# -- fig18 --
+order_df = df.groupby("customer_state", observed = False).agg(orders_count = ("order_id", "nunique")).reset_index()
+order_df["customer_state_full"] = order_df["customer_state"].map(state_map)
+fig18 = px.choropleth(
+    order_df,
+    geojson=geojson,
+    locations="customer_state",
+    featureidkey="properties.sigla",
+    color="orders_count",
+    color_continuous_scale="RdBu_r",
+    scope="world",
+    title="Total Orders by State",
+    hover_name="customer_state_full",
+    hover_data={},
+)
+
+fig18.update_traces(
+    hovertemplate="<b>%{customdata[0]}</b><br>Orders Count: %{customdata[1]}<extra></extra>",
+    customdata=order_df[["customer_state_full", "orders_count"]].to_numpy()
+)
+
+fig18.update_geos(
+    fitbounds="locations",
+    visible=False,
+    lataxis_range=[-38, 10],
+    lonaxis_range=[-78, -30]
+)
+
+fig18.update_layout(margin={"r":0,"t":50,"l":0,"b":0},
+    coloraxis_colorbar=dict(
+        title=dict(
+            text="Total Orders", 
+            side="right",              
+            font=dict(size=12)
+        ), x = 0.85
+    ), title_x=0.5)
+
+
 figures_to_save = {
     "fig1_choropleth.html": fig1_choropleth,
     "fig2_choropleth.html": fig2_choropleth,
@@ -840,7 +989,11 @@ figures_to_save = {
     "fig11.html": fig11,
     "fig12.html": fig12,
     "fig13.html": fig13,
-    "fig14.html": fig14
+    "fig14.html": fig14,
+    "fig15.html": fig15,
+    "fig16.html": fig16,
+    "fig17.html": fig17,
+    "fig18.html": fig18
 }
 
 # Save them
