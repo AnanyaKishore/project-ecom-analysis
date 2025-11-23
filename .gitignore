@@ -1,3 +1,4 @@
 /data/merged_info_after_drop.parquet
 /data/merged_info_after_impute.parquet
 /data/merged_info.parquet
+/src/data_viz.ipynb

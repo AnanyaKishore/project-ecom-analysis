@@ -122,7 +122,7 @@
             <button class="nav-link" onclick="openTab(event, 'tab-statewise')">State-Wise</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" onclick="openTab(event, 'tab-timeseries')">Time Series</button>
+            <button class="nav-link" onclick="openTab(event, 'tab-timeseries')">Time-Based</button>
         </li>
         <li class="nav-item">
             <button class="nav-link" onclick="openTab(event, 'tab-trends')">Trends</button>
@@ -224,38 +224,67 @@
             <h5 style="text-align: center;">Comparing Overall Variations (Left) with State-Wise Variations (Right)</h5>
             <br>
             
-            <!-- Row 1 -->
             <div class="row">
                 <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig1.html"></iframe></div></div></div>
                 <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig1_choropleth.html"></iframe></div></div></div>
             </div>
+            
+            <div class="text-center mt-2 mb-4">
+                <strong>Most Frequently Observed:</strong> 6 Days
+                <br>
+                On average, an order is delivered <b>8.77 days</b> after it has been shipped.
+            </div>
             <hr>
 
-            <!-- Row 2 -->
             <div class="row">
                 <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig2.html"></iframe></div></div></div>
                 <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig2_choropleth.html"></iframe></div></div></div>
             </div>
+
+            <div class="text-center mt-2 mb-4">
+                <strong>Most Frequently Observed:</strong> 14 Days Early
+                <br>
+                On average, orders are delivered <b>11.98 days earlier</b> than expected!
+                <br>
+                <small class="text-center">(- indicates orders are delivered <i>earlier</i> than expected, + indicates <i>later</i>)</small>
+            </div>
             <hr>
 
-            <!-- Row 3 -->
             <div class="row">
                 <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig3.html"></iframe></div></div></div>
                 <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig3_choropleth.html"></iframe></div></div></div>
             </div>
+
+            <div class="text-center mt-2 mb-4">
+                <strong>Most Frequently Observed:</strong> 6 Days Early
+                <br>
+                On average, orders are shipped <b>3.82 days before</b> the shipping limit date!
+                <br>
+                <small class="text-center">(- indicates orders are shipped <i>earlier</i> before the limit, + indicates <i>later</i>)</small>
+            </div>
             <hr>
             
-            <!-- Row 4 -->
             <div class="row">
                 <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig4.html"></iframe></div></div></div>
                 <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig4_choropleth.html"></iframe></div></div></div>
             </div>
+
+            <div class="text-center mt-2 mb-4">
+                <strong>Most Frequently Observed:</strong> 7 Days
+                <br>
+                On average, an order is delivered <b>12.07</b> days after it has been purchased.
+            </div>
             <hr>
 
-            <!-- Row 5 -->
             <div class="row">
                 <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig5.html"></iframe></div></div></div>
                 <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig5_choropleth.html"></iframe></div></div></div>
+            </div>
+
+            <div class="text-center mt-2 mb-4">
+                <strong>Most Frequently Observed:</strong> 1 Day
+                <br>
+                On average, an order is shipped <b>2.83</b> days after it has been purchased.
             </div>
         </div>
 
@@ -275,8 +304,11 @@
             <hr style="width: 50%; margin: 10px auto;">
 
             <div class="row">
-                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig13.html"></iframe></div></div></div>
-                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig14.html"></iframe></div></div></div>
+                <div class="col-md-12"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig13.html"></iframe></div></div></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig14.html"></iframe></div></div></div>
             </div>
         </div>
 
