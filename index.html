@@ -31,9 +31,19 @@
             text-align: center;
         }
 
+        /* REQUIREMENT: Change number color instead of title color */
+        .stat-card .card-text {
+            color: #ed1b76;
+            font-weight: bold;
+        }
+        
+        .stat-card .card-title {
+            color: inherit;
+        }
+
         /* Graph Card Styles */
         .graph-card {
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem; /* Reduced margin since text is now below it */
             border: none;
         }
 
@@ -100,6 +110,15 @@
             border-top: 1px solid white;
             opacity: 1;
         }
+        
+        /* Utility for new centered headings */
+        .section-header {
+            text-align: center;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            font-size: 1.25rem;
+        }
     </style>
 </head>
 <body>
@@ -132,6 +151,13 @@
     <div id="tab-content">
 
         <div id="tab-overview" class="tab-pane active">
+            <div class="container mt-4">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                
+                <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque.</p>
+                
+                <p>Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst. Fusce convallis, mauris imperdiet gravida bibendum, nisl turpis suscipit mauris, sed placerat ipsum urna sed risus. In convallis tellus a mauris. Curabitur ordiorci. Vestibulum vulputate posuere magna.</p>
+            </div>
         </div>
 
         <div id="tab-orders" class="tab-pane">
@@ -168,7 +194,10 @@
                         <h4 class="card-text">32,621</h4> </div>
                 </div>
             </div>
+            
             <br>
+            <div class="section-header">Order Status</div>
+
             <div style="display: flex; flex-wrap: wrap; justify-content: center;">
                 <div class="card stat-card shadow-sm">
                     <div class="card-body">
@@ -197,6 +226,7 @@
                             <iframe class="graph-frame" src="assets/fig16.html"></iframe>
                         </div>
                     </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
                 </div>
                 <div class="col-md-6">
                     <div style="margin-top: 3.5rem;"></div> 
@@ -205,6 +235,7 @@
                             <iframe class="graph-frame" src="assets/fig18.html"></iframe>
                         </div>
                     </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
                 </div>
             </div>
             <div class="row">
@@ -214,17 +245,28 @@
                             <iframe class="graph-frame" src="assets/fig15.html"></iframe>
                         </div>
                     </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
                 </div>
             </div>
         </div>
 
         <div id="tab-customers" class="tab-pane">
             <br>
+            <div class="section-header">Customer Behaviour Insights</div>
+            
             <div style="display: flex; flex-wrap: wrap; justify-content: center;">
-                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Customers</h6><h4 class="card-text">94,101</h4></div></div>
-                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Regions</h6><h4 class="card-text">14,930</h4></div></div>
-                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique Cities</h6><h4 class="card-text">4,091</h4></div></div>
-                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Unique States</h6><h4 class="card-text">27</h4></div></div>
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Customers</h6><h4 class="card-text">94,101</h4></div></div>
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Customer Lifetime Value</h6><h4 class="card-text">$140.83</h4></div></div>
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Repeat Purchase Rate</h6><h4 class="card-text">3.04%</h4></div></div>
+            </div>
+            <br>
+            
+            <div class="section-header">Customer Demographics</div>
+
+            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Regions</h6><h4 class="card-text">14,930</h4></div></div>
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">Cities</h6><h4 class="card-text">4,091</h4></div></div>
+                <div class="card stat-card shadow-sm"><div class="card-body"><h6 class="card-title">States</h6><h4 class="card-text">27</h4></div></div>
             </div>
             <br>
             
@@ -235,6 +277,7 @@
                             <iframe class="graph-frame" src="assets/fig6.html"></iframe>
                         </div>
                     </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
                 </div>
                 <div class="col-md-6">
                     <div class="card graph-card shadow-sm">
@@ -242,6 +285,7 @@
                             <iframe class="graph-frame" src="assets/fig17.html"></iframe>
                         </div>
                     </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
                 </div>
             </div>
 
@@ -252,6 +296,7 @@
                             <iframe class="graph-frame" src="assets/fig7.html"></iframe>
                         </div>
                     </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
                 </div>
             </div>
         </div>
@@ -265,6 +310,7 @@
                             <iframe class="graph-frame" src="assets/fig9.html"></iframe>
                         </div>
                     </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
                 </div>
                 <div class="col-md-6">
                     <div class="card graph-card shadow-sm">
@@ -272,6 +318,7 @@
                             <iframe class="graph-frame" src="assets/fig10.html"></iframe>
                         </div>
                     </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
                 </div>
             </div>
             <div class="row">
@@ -281,18 +328,33 @@
                             <iframe class="graph-frame" src="assets/fig8.html"></iframe>
                         </div>
                     </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
                 </div>
             </div>
         </div>
 
         <div id="tab-timeseries" class="tab-pane">
             <br>
-            <h5 style="text-align: center;">Comparing Overall Variations (Left) with State-Wise Variations (Right)</h5>
+            <h5 style="text-align: center;">Comparing Overall Variations <i>(Left)</i> with State-Wise Variations <i>(Right)</i></h5>
             <br>
             
             <div class="row">
-                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig1.html"></iframe></div></div></div>
-                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig1_choropleth.html"></iframe></div></div></div>
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig1.html"></iframe>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig1_choropleth.html"></iframe>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
+                </div>
             </div>
             
             <div class="text-center mt-2 mb-4">
@@ -303,8 +365,22 @@
             <hr>
 
             <div class="row">
-                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig2.html"></iframe></div></div></div>
-                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig2_choropleth.html"></iframe></div></div></div>
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig2.html"></iframe>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig2_choropleth.html"></iframe>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
+                </div>
             </div>
 
             <div class="text-center mt-2 mb-4">
@@ -317,8 +393,22 @@
             <hr>
 
             <div class="row">
-                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig3.html"></iframe></div></div></div>
-                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig3_choropleth.html"></iframe></div></div></div>
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig3.html"></iframe>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig3_choropleth.html"></iframe>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
+                </div>
             </div>
 
             <div class="text-center mt-2 mb-4">
@@ -331,8 +421,22 @@
             <hr>
             
             <div class="row">
-                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig4.html"></iframe></div></div></div>
-                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig4_choropleth.html"></iframe></div></div></div>
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig4.html"></iframe>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig4_choropleth.html"></iframe>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
+                </div>
             </div>
 
             <div class="text-center mt-2 mb-4">
@@ -343,8 +447,22 @@
             <hr>
 
             <div class="row">
-                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig5.html"></iframe></div></div></div>
-                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig5_choropleth.html"></iframe></div></div></div>
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig5.html"></iframe>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig5_choropleth.html"></iframe>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
+                </div>
             </div>
 
             <div class="text-center mt-2 mb-4">
@@ -360,8 +478,22 @@
             <hr style="width: 50%; margin: 10px auto;">
 
             <div class="row">
-                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig11.html"></iframe></div></div></div>
-                <div class="col-md-6"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig12.html"></iframe></div></div></div>
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig11.html"></iframe>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig12.html"></iframe>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
+                </div>
             </div>
 
             <br><br>
@@ -369,11 +501,25 @@
             <hr style="width: 50%; margin: 10px auto;">
 
             <div class="row">
-                <div class="col-md-12"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig13.html"></iframe></div></div></div>
+                <div class="col-md-12">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig13.html"></iframe>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
+                </div>
             </div>
 
             <div class="row">
-                <div class="col-md-12"><div class="card graph-card shadow-sm"><div class="card-body"><iframe class="graph-frame" src="assets/fig14.html"></iframe></div></div></div>
+                <div class="col-md-12">
+                    <div class="card graph-card shadow-sm">
+                        <div class="card-body">
+                            <iframe class="graph-frame" src="assets/fig14.html"></iframe>
+                        </div>
+                    </div>
+                    <div class="text-center mt-2 mb-4">This is a text placeholder</div>
+                </div>
             </div>
         </div>
 
