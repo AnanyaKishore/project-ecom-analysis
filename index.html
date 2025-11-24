@@ -7,7 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
-        /* Global Styles matching your app.layout styles */
         body {
             background-color: black;
             color: white;
@@ -31,7 +30,6 @@
             text-align: center;
         }
 
-        /* REQUIREMENT: Change number color instead of title color */
         .stat-card .card-text {
             color: #ed1b76;
             font-weight: bold;
@@ -43,7 +41,7 @@
 
         /* Graph Card Styles */
         .graph-card {
-            margin-bottom: 0.5rem; /* Reduced margin since text is now below it */
+            margin-bottom: 0.5rem;
             border: none;
         }
 
@@ -52,10 +50,9 @@
             overflow: hidden;
         }
 
-        /* Iframe styling to embed the Plotly HTMLs seamlessly */
         iframe.graph-frame {
             width: 100%;
-            height: 450px; /* Standard Dash graph height */
+            height: 450px;
             border: none;
             display: block;
         }
@@ -119,6 +116,18 @@
             font-weight: 500;
             font-size: 1.25rem;
         }
+
+        /* Custom link style for the internal tab links */
+        .tab-jump-link {
+            color: #ed1b76;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .tab-jump-link:hover {
+            text-decoration: underline;
+            color: #c41661;
+        }
     </style>
 </head>
 <body>
@@ -129,22 +138,22 @@
 
     <ul class="nav nav-tabs" id="dashboardTabs">
         <li class="nav-item">
-            <button class="nav-link active" onclick="openTab(event, 'tab-logistics')">Overview</button>
+            <button class="nav-link active" id="nav-btn-overview" onclick="openTab(event, 'tab-overview')">Overview</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" onclick="openTab(event, 'tab-orders')">Orders</button>
+            <button class="nav-link" id="nav-btn-orders" onclick="openTab(event, 'tab-orders')">Orders</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" onclick="openTab(event, 'tab-customers')">Customers</button>
+            <button class="nav-link" id="nav-btn-customers" onclick="openTab(event, 'tab-customers')">Customers</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" onclick="openTab(event, 'tab-statewise')">State-Wise</button>
+            <button class="nav-link" id="nav-btn-statewise" onclick="openTab(event, 'tab-statewise')">State-Wise</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" onclick="openTab(event, 'tab-timeseries')">Time-Based</button>
+            <button class="nav-link" id="nav-btn-timeseries" onclick="openTab(event, 'tab-timeseries')">Time-Based</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" onclick="openTab(event, 'tab-trends')">Trends</button>
+            <button class="nav-link" id="nav-btn-trends" onclick="openTab(event, 'tab-trends')">Trends</button>
         </li>
     </ul>
 
@@ -152,7 +161,74 @@
 
         <div id="tab-overview" class="tab-pane active">
             <div class="container mt-4">
-                <p> To update Overview.</p>
+                
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        
+                        <h5 class="card-title mb-3" style="color: #ed1b76; font-weight: bold;">Overview</h5>
+                        <ul>
+                            <li>This project analyzes sales patterns and customer behaviour from <b>Brazilian e-commerce data</b> collected between September 2016 and September 2018.</li>
+                            <li>The datasets have been collected from <a href="https://github.com/olist/work-at-olist-data/tree/master/datasets" target="_blank">here</a>.</li>
+                            <li>Uses <b>Pandas</b> for data cleaning, storage and wrangling.</li>
+                            <li>Uses <b>Plotly</b> for visualization.</li>
+                        </ul>
+                        <p class="ms-3 mb-4">To view the master repository, see <a href="https://github.com/AnanyaKishore/project-ecom-analysis" target="_blank">here</a>.</p>
+
+                        <h5 class="card-title mt-4 mb-3" style="color: #ed1b76; font-weight: bold;">Data Cleaning</h5>
+                        <ul>
+                            <li>Exploratory Data Analysis performed for all three datasets to analyze number of records, relationships between the datasets and to extract relevant information.</li>
+                            <li>Removing records from the customer orders dataset that do not have a legitimate <code>order_id</code>.</li>
+                            <li>Merging the three datasets into a master dataset.</li>
+                            <li>Efficient conversion of columns to suitable datatypes.</li>
+                            <li>For efficient storage for further analysis, the master dataset is stored as a <b>parquet</b> file.</li>
+                            <li>This preserves the datatypes and the data is read in ~2 times faster than the CSV counterpart, while also taking up only half the storage size of the latter.</li>
+                            <li>Removing records where the order timeline is nonsensical (shipped before approved, delivered before shipped, and so on).</li>
+                            <li>Imputation done for missing date information wherever necessary.</li>
+                        </ul>
+                        <p class="ms-3 mb-4">For a detailed analysis of the cleaning process, see <a href="https://github.com/AnanyaKishore/project-ecom-analysis/blob/main/src/data_analysis.ipynb" target="_blank">here</a>.</p>
+
+                        <h5 class="card-title mt-4 mb-3" style="color: #ed1b76; font-weight: bold;">Data Visualization</h5>
+                        <ul>
+                            <li>Relevant <b>KPIs</b> (Key Performance Indicators) calculated from the cleaned master dataset.</li>
+                            <li>Five categories of plots created, namely: 
+                                <a class="tab-jump-link" onclick="document.getElementById('nav-btn-orders').click()">Orders</a>, 
+                                <a class="tab-jump-link" onclick="document.getElementById('nav-btn-customers').click()">Customers</a>, 
+                                <a class="tab-jump-link" onclick="document.getElementById('nav-btn-statewise').click()">State-Wise</a>, 
+                                <a class="tab-jump-link" onclick="document.getElementById('nav-btn-timeseries').click()">Time-Based</a> and 
+                                <a class="tab-jump-link" onclick="document.getElementById('nav-btn-trends').click()">Trends</a>.
+                            </li>
+                            <li>To view and analyze these plots, jump to the desired tab by clicking on its name.</li>
+                            <li><b>Hover</b> over any section of each plot to see the necessary statistics.</li>
+                        </ul>
+                        <p class="ms-3">For a detailed analysis of the visualization process, see <a href="https://github.com/AnanyaKishore/project-ecom-analysis/blob/main/src/app.py" target="_blank">here</a>.</p>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body text-center">
+                                <h6 class="card-title" style="color: #ed1b76; font-weight: bold;">Author</h6>
+                                <p class="card-text">
+                                    <a href="https://github.com/AnanyaKishore" target="_blank" style="text-decoration: none; color: #212529; font-weight: 500;">Ananya Kishore</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body text-center">
+                                <h6 class="card-title" style="color: #ed1b76; font-weight: bold;">Other Contributors</h6>
+                                <p class="card-text">
+                                    <a href="https://github.com/eshikanahata" target="_blank" style="text-decoration: none; color: #212529; font-weight: 500;">Eshika Nahata</a>
+                                    &nbsp;&bull;&nbsp;
+                                    <a href="https://github.com/Sm1486" target="_blank" style="text-decoration: none; color: #212529; font-weight: 500;">Sahithi Macharapu</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -225,7 +301,7 @@
                             <iframe class="graph-frame" src="assets/fig18.html"></iframe>
                         </div>
                     </div>
-                    <div class="text-center mt-2 mb-4"> Hover over a state to view its orders count! <br> <b>São Paulo</b> records the highest number of orders <b>(40,785)</b>, reflecting its position as Brazil's most populous state. <b>Roraima</b> has the fewest orders <b>(45)</b>, consistent with its smaller population.</div>
+                    <div class="text-center mt-2 mb-4"><b>São Paulo</b> records the highest number of orders <b>(40,785)</b>, reflecting its position as Brazil's most populous state. <b>Roraima</b> has the fewest orders <b>(45)</b>, consistent with its smaller population.</div>
                 </div>
             </div>
             
@@ -236,7 +312,7 @@
                             <iframe class="graph-frame" src="assets/fig15.html"></iframe>
                         </div>
                     </div>
-                    <div class="text-center mt-2 mb-4">Hover over a bar to view the average item price! Generally, the average price per item <i>decreases</i> as the number of items in an order <i>increases</i>. A notable outlier appears at <b>8 items</b>, where the average price rises to <b>$265.67 (36 orders)</b>. The lowest average price <b>($1.51)</b> occurs at <b>21 items</b>, <i>but</i> this is based on a single order.</div>
+                    <div class="text-center mt-2 mb-4">Generally, the average price per item <i>decreases</i> as the number of items in an order <i>increases</i>. <br> A notable outlier appears at <b>8 items</b>, where the average price rises to <b>$265.67 (36 orders)</b>. The lowest average price <b>($1.51)</b> occurs at <b>21 items</b>, <i>but</i> this is based on a single order.</div>
                 </div>
             </div>
         </div>
@@ -285,7 +361,7 @@
                             <iframe class="graph-frame" src="assets/fig7.html"></iframe>
                         </div>
                     </div>
-                    <div class="text-center mt-2 mb-4">Hover over any cell in the heatmap to see the number of orders placed! On weekdays, most orders occur between <b>10 AM and 5 PM</b>, with the highest volume (1,097 orders) between <b>9 PM and 10 PM</b> on <b>Mondays</b>. Weekend activity is considerably <i>lower</i>, likely reflecting increased in-person shopping during free time.</div>
+                    <div class="text-center mt-2 mb-4">On <i>weekdays</i>, most orders occur between <b>10 AM and 5 PM</b>, with the highest volume (1,097 orders) between <b>9 PM and 10 PM</b> on <b>Mondays</b>. <br> <i>Weekend</i> activity is considerably lower, likely reflecting increased in-person shopping during free time.</div>
                 </div>
             </div>
         </div>
@@ -517,9 +593,17 @@
         }
 
         // 3. Show the current tab and add "active" class to the button clicked
-        document.getElementById(tabName).style.display = "block";
-        document.getElementById(tabName).classList.add("active");
-        evt.currentTarget.className += " active";
+        // Note: Using document.getElementById(tabName) ensures we target the correct Div
+        var targetTab = document.getElementById(tabName);
+        if (targetTab) {
+            targetTab.style.display = "block";
+            targetTab.classList.add("active");
+        }
+        
+        // Add active class to the clicked button
+        if (evt && evt.currentTarget) {
+            evt.currentTarget.className += " active";
+        }
     }
 </script>
 
