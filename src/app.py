@@ -21,7 +21,6 @@ try:
     print("GeoJSON downloaded successfully.")
 except Exception as e:
     print(f"Error downloading GeoJSON: {e}")
-    print("Cannot proceed with map visualizations.")
     geojson = None
 
 df = pd.read_parquet(r"../data/merged_info_after_impute.parquet")
@@ -542,7 +541,6 @@ fig8.update_layout(
     )
 )
 
-
 # Annotate bars with values rounded to 2 decimals
 fig8.update_traces(
     text=late_deliveries['late_orders_percentage'].round(2),
@@ -973,7 +971,6 @@ fig18.update_layout(margin={"r":0,"t":50,"l":0,"b":0},
             font=dict(size=12)
         ), x = 0.85
     ), title_x=0.5)
-
 
 figures_to_save = {
     "fig1_choropleth.html": fig1_choropleth,
