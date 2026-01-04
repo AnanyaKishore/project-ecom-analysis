@@ -24,6 +24,7 @@ except Exception as e:
     geojson = None
 
 df = pd.read_parquet(r"../data/merged_info_after_impute.parquet")
+# Mapping with full state names
 state_map = {
     "AC": "Acre",
     "AL": "Alagoas",
