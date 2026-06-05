@@ -210,7 +210,7 @@ fig2_choropleth.update_geos(
     lonaxis_range=[-78, -30]
 )
 
-# Layout + legend rename
+# Layout and legend rename
 fig2_choropleth.update_layout(margin={"r":0,"t":50,"l":0,"b":0},
     coloraxis_colorbar=dict(
         title=dict(
@@ -267,7 +267,7 @@ fig3_choropleth.update_geos(
     lonaxis_range=[-78, -30]
 )
 
-# Layout + legend rename
+
 fig3_choropleth.update_layout(
     title_x=0.5,
     coloraxis_colorbar=dict(title="Avg Diff (Days)")
@@ -284,7 +284,7 @@ fig3_choropleth.update_layout(margin={"r":0,"t":50,"l":0,"b":0},
 fig3_choropleth.update_geos(fitbounds="locations", visible=False)
 
 # --- fig4_choropleth ---
-# Average delivery time (order → delivered) by state
+# Average delivery time (order to delivered) by state
 pio.templates.default = "plotly_white"
 
 state_delivery = (
@@ -327,7 +327,7 @@ fig4_choropleth.update_geos(
     lonaxis_range=[-78, -30]
 )
 
-# Layout + legend rename
+# Layout and legend rename
 fig4_choropleth.update_layout(
     title_x=0.5,
     coloraxis_colorbar=dict(title="Avg Time (Days)")
@@ -344,7 +344,7 @@ fig4_choropleth.update_layout(margin={"r":0,"t":50,"l":0,"b":0},
 fig4_choropleth.update_geos(fitbounds="locations", visible=False)
 
 # --- fig5_choropleth ---
-# Average shipping delay (order → carrier pickup) by state
+# Average shipping delay (ordered to carrier pickup) by state
 pio.templates.default = "plotly_white"
 
 # Compute state averages
@@ -388,7 +388,7 @@ fig5_choropleth.update_geos(
     lonaxis_range=[-78, -30]
 )
 
-# Layout + legend rename
+# Layout and legend rename
 fig5_choropleth.update_layout(margin={"r":0,"t":50,"l":0,"b":0},
     coloraxis_colorbar=dict(
         title=dict(
@@ -526,7 +526,7 @@ fig8 = px.bar(
     }
 )
 
-# Center title and adjust layout
+# Layout formatting
 fig8.update_layout(
     title={'x': 0.5},
     xaxis=dict(categoryorder='total descending', tickangle = -45,  tickfont=dict(size=10)),
@@ -615,7 +615,7 @@ fig10 = px.choropleth(
     scope="world",
     title="Average Freight Cost by State",
     hover_name="customer_state_full",
-    hover_data={},       # remove automatic extras
+    hover_data={},
 )
 
 # Match the custom hovertemplate style
@@ -634,7 +634,7 @@ fig10.update_geos(
     lonaxis_range=[-78, -30]
 )
 
-# Match title + legend formatting
+# Legend formatting
 fig10.update_layout(title_x=0.5,
     coloraxis_colorbar=dict(
     title=dict(
@@ -684,18 +684,18 @@ fig12 = px.bar(
     labels={'order_purchase_timestamp': 'Month', 'num_orders': 'Orders'},
     color='num_orders',
     color_continuous_scale='Plasma',
-    text='num_orders'                     # show numbers
+    text='num_orders'
 )
 
 fig12.update_traces(
     texttemplate='%{text}',
-    textposition='outside'                # place above bars
+    textposition='outside'
 )
 
 fig12.update_layout(
     title_x=0.5,
     uniformtext_minsize=8,
-    uniformtext_mode='hide',              # avoid overlap
+    uniformtext_mode='hide',
     margin=dict(t=50),
     coloraxis_colorbar=dict(
         title=dict(
@@ -708,10 +708,9 @@ fig12.update_layout(
 
 # Dynamic Plots
 # --- fig13 ---
-# Monthly Sales by State (Using customer_state_full)
+# Monthly Sales by State
 
 df['month_year'] = df['order_purchase_timestamp'].dt.to_period('M').astype(str)
-
 # Use the full state name column
 all_states = df['customer_state_full'].unique()
 all_months = df['month_year'].unique()
@@ -721,8 +720,7 @@ scaffold = pd.DataFrame(list(product(all_states, all_months)),
                         columns=['customer_state_full', 'month_year'])
 
 monthly_data = df.groupby(['customer_state_full', 'month_year'], observed=False).agg(
-    monthly_sales=('price', 'sum')
-).reset_index()
+    monthly_sales=('price', 'sum')).reset_index()
 
 padded_data = pd.merge(scaffold, monthly_data,
                        on=['customer_state_full', 'month_year'],
@@ -822,7 +820,7 @@ items_per_order = items_per_order.rename(columns={'order_item_id': 'num_items'})
 df_with_num_items = pd.merge(df, items_per_order, on='order_id')
 avg_price_data = df_with_num_items.groupby('num_items')['price'].mean().reset_index()
 
-# Create formatted label for display only
+# Create formatted label for display
 avg_price_data['price_label'] = avg_price_data['price'].round(2).apply(lambda x: f"${x}")
 
 fig15 = px.bar(
@@ -872,7 +870,7 @@ fig16 = px.pie(
 fig16.update_traces(
     textposition='inside',
     textinfo='label+percent',
-    textfont=dict(size=11),                        # smaller label text
+    textfont=dict(size=11),
     pull=0.03,
     rotation=90,
     hovertemplate="Order Status: %{label}<br>Percent: %{percent}<extra></extra>"
@@ -994,7 +992,6 @@ figures_to_save = {
     "fig18.html": fig18
 }
 
-# Save them
 for filename, fig in figures_to_save.items():
     # This keeps the graph interactive but removes the heavy modebar to look cleaner
     fig.write_html(fr"../assets/{filename}", config={'displayModeBar': False})
